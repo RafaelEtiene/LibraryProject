@@ -13,7 +13,7 @@ namespace LibraryAPI.Domain.Validators
                                           .NotEmpty().WithMessage("NameBook is required.");
 
             RuleFor(book => book.Author).NotEmpty().WithMessage("Author is required."); 
-            ;
+             ;
             RuleFor(book => book.PublicationDate).LessThanOrEqualTo(DateTime.Today).WithMessage("Published date cannot be in the future.")
                                                  .NotEmpty().WithMessage("PublicationDate is required.");
 
