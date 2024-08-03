@@ -27,7 +27,7 @@ namespace LibraryAPI.Services
             return books;
         }
 
-        public async Task InsertBook(BookInfo book)
+        public async Task InsertBookAsync(BookInfo book)
         {
             var validator = new BookValidator();
             var result = validator.Validate(book);
@@ -42,7 +42,7 @@ namespace LibraryAPI.Services
             await _bookRepository.InsertBook(book);
         }
 
-        public Task InsertMassiveBooks()
+        public Task InsertMassiveBookAsync()
         {
             throw new NotImplementedException();
         }

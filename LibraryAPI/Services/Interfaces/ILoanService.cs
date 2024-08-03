@@ -1,12 +1,13 @@
-﻿using LibraryAPI.Domain.Model;
+﻿using LibraryAPI.Domain.DTO;
+using LibraryAPI.Domain.Model;
 
 namespace LibraryAPI.Services.Interfaces
 {
     public interface ILoanService
     {
-        public Task<int> GetBookLoanById(int idLoan);
-        public Task<int> InsertNewBookLoan(LoanInfo loan);
-        public Task RenovateLoan(Client client);
-        public Task FinishLoan(int idLoan);
+        public Task<LoanInfo> GetBookLoanByIdAsync(int idLoan);
+        public Task<int> InsertNewBookLoanAsync(LoanInsertDTO loan);
+        public Task RenovateLoanAsync(Client client);
+        public Task FinishLoanAsync(int idLoan);
     }
 }

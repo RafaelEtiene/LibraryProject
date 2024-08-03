@@ -5,7 +5,7 @@ namespace LibraryAPI.Services.Interfaces
     public interface IBookService
     {
         public Task<IEnumerable<BookInfo>> GetAllBooksAsync();
-        public Task InsertBook(BookInfo book);
-        public Task InsertMassiveBooks();
+        public Task InsertBookAsync(BookInfo book);
+        public Task InsertMassiveBookAsync();
     }
 }

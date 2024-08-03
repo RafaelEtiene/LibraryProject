@@ -1,10 +1,10 @@
 ﻿namespace LibraryAPI.Domain.Model
 {
-    public class LoanInfo
+    public class Loan
     {
         public int IdLoan { get; set; }
-        public int NameBook { get; set; }
-        public int NameClient { get; set; }
+        public int IdBook { get; set; }
+        public int IdClient { get; set; }
         public DateTime DateInitialLoan { get; set; }
         public int IdStatusLoan { get; set; }
         public decimal LateFine { get; set; }
