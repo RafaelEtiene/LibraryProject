@@ -2,7 +2,7 @@
 {
     public class Client
     {
-        public int IdClient { get; set; }
+        public int? IdClient { get; set; }
         public required string Name { get; set; }
         public int Age { get; set; }
         public required string Gender { get; set; }

@@ -7,7 +7,7 @@ namespace LibraryAPI.Services.Interfaces
     {
         public Task<LoanInfo> GetBookLoanByIdAsync(int idLoan);
         public Task<int> InsertNewBookLoanAsync(LoanInsertDTO loan);
-        public Task RenovateLoanAsync(Client client);
+        public Task RenovateLoanAsync(int idLoan);
         public Task FinishLoanAsync(int idLoan);
     }
 }

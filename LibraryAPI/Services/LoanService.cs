@@ -16,13 +16,13 @@ namespace LibraryAPI.Services
             _loanRepository = loanRepository;
         }
 
-        public Task<LoanInfo> GetBookLoanByIdAsync(int idLoan)
+        public async Task<LoanInfo> GetBookLoanByIdAsync(int idLoan)
         {
-            var loanInfo = _loanRepository.GetBookLoanById(idLoan);
+            var loanInfo = await _loanRepository.GetBookLoanById(idLoan);
 
             if(loanInfo is null)
             {
-                throw new BusinessException($"Not found loan info for the idLoan {idLoan}.");
+                throw new BusinessException($"Not found loan info for this idLoan {idLoan}.");
             }
 
             return loanInfo;
@@ -59,14 +59,14 @@ namespace LibraryAPI.Services
             return await _loanRepository.InsertNewBookLoan(loan);
         }
 
-        public Task RenovateLoanAsync(Client client)
+        public async Task RenovateLoanAsync(int idLoan)
         {
-            throw new NotImplementedException();
+            await _loanRepository.RenovateLoan(idLoan);
         }
 
-        public Task FinishLoanAsync(int idLoan)
+        public async Task FinishLoanAsync(int idLoan)
         {
-            throw new NotImplementedException();
+            await _loanRepository.FinishLoan(idLoan);
         }
     }
 }

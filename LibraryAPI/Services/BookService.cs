@@ -27,7 +27,7 @@ namespace LibraryAPI.Services
             return books;
         }
 
-        public async Task InsertBookAsync(BookInfo book)
+        public async Task<int> InsertBookAsync(BookInfo book)
         {
             var validator = new BookValidator();
             var result = validator.Validate(book);
@@ -39,7 +39,7 @@ namespace LibraryAPI.Services
                 throw new BusinessException($"The request is invalid. {propertiesError}");
             }
 
-            await _bookRepository.InsertBook(book);
+            return await _bookRepository.InsertBook(book);
         }
 
         public Task InsertMassiveBookAsync()

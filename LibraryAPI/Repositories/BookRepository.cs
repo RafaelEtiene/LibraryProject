@@ -7,11 +7,11 @@ namespace LibraryAPI.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly string connectionString;
 
         public BookRepository(IConfiguration configuration)
         {
-            _configuration = configuration;
+            connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public async Task<IEnumerable<BookInfo>> GetAllBooksAsync()
@@ -19,16 +19,17 @@ namespace LibraryAPI.Repositories
             var query = @"SELECT idBook as IdBook, nameBook as NameBook, author as Author, publicationDate as PublicationDate, idBookGenre as Genre
                           FROM Book";
 
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using(var connection = new MySqlConnection(connectionString))
             {            
                return await connection.QueryAsync<BookInfo>(query);
             }
         }
 
-        public async Task InsertBook(BookInfo book)
+        public async Task<int> InsertBook(BookInfo book)
         {
             var query = @"INSERT INTO Book (idBook, nameBook, author, publicationDate, idBookGenre) 
-                          VALUES (null, @NameBook, @Author, @PublicationDate, @IdBookGenre)";
+                          VALUES (null, @NameBook, @Author, @PublicationDate, @IdBookGenre);
+                          SELECT last_insert_id();";
 
             var param = new DynamicParameters();
             param.Add("@NameBook", book.NameBook);
@@ -36,9 +37,9 @@ namespace LibraryAPI.Repositories
             param.Add("@PublicationDate", book.PublicationDate);
             param.Add("@IdBookGenre", (int)book.Genre);
 
-            using (var connection = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            using (var connection = new MySqlConnection(connectionString))
             {
-                await connection.ExecuteAsync(query, param);
+                return await connection.QueryFirstAsync<int>(query, param);
             }
         }
 

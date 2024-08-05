@@ -17,6 +17,8 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet("GetAllBooks")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookInfo>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllBooks()
         {
             try
@@ -36,11 +38,13 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpPost("InsertBook")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertBook([FromBody]BookInfo request)
         {
             try
             {
-                await _bookService.InsertBook(request);
+                await _bookService.InsertBookAsync(request);
 
                 return Ok();
             }
