@@ -31,7 +31,7 @@ namespace LibraryAPI.Services
         {
             var clients = await _clientRepository.GetClientsAsync();
 
-            if (clients is null)
+            if (clients.Count() < 1)
             {
                 throw new BusinessException($"No clients found.");
             }

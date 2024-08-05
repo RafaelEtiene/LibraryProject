@@ -90,8 +90,8 @@ namespace LibraryAPI.Repositories
 
         public async Task<bool> ValidateExistLoan(int idClient)
         {
-            var query = @"SELECT EXISTS FROM loan
-                          WHERE idClient = @IdClient AND idStatusLoan in 1, 2, 3;";
+            var query = @"SELECT EXISTS(SELECT 1 FROM loan
+                          WHERE idClient = @IdClient AND idStatusLoan in (1, 2, 3));";
 
             var param = new DynamicParameters();
             param.Add("@IdClient", idClient);
