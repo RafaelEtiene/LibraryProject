@@ -1,7 +1,7 @@
-using LibraryAPI.Repositories;
-using LibraryAPI.Repositories.Interfaces;
-using LibraryAPI.Services;
-using LibraryAPI.Services.Interfaces;
+using Library.Data.Repositories;
+using Library.Data.Repositories.Interfaces;
+using Library.Data.Services;
+using Library.Data.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

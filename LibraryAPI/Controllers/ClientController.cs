@@ -1,6 +1,6 @@
-using LibraryAPI.Domain.Exceptions;
-using LibraryAPI.Domain.Model;
-using LibraryAPI.Services.Interfaces;
+using Library.Model.Exceptions;
+using Library.Model.Model;
+using Library.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
