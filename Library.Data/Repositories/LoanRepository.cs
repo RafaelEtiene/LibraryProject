@@ -19,7 +19,7 @@ namespace Library.Data.Repositories
         public async Task FinishLoan(int idLoan)
         {
             var query = @"UPDATE loan
-                        SET idStatusLoan = @IdStatusLoan, note = @Note
+                        SET idStatusLoan = @IdStatusLoan, note = @Note, lastStatusDate = @LastStatusDate
                         WHERE idLoan = @IdLoan";
 
             var message = "The book was returned.";
@@ -28,6 +28,7 @@ namespace Library.Data.Repositories
             param.Add("@IdStatusLoan", (int)StatusLoan.Returned);
             param.Add("@Note", message);
             param.Add("@IdLoan", idLoan);
+            param.Add("@LastStatusDate", DateTime.Now);
 
             using (var connection = new MySqlConnection(connectionString))
             {
@@ -37,7 +38,7 @@ namespace Library.Data.Repositories
 
         public async Task<LoanInfo> GetBookLoanById(int idLoan)
         {
-            var query = @"SELECT l.idLoan as IdLoan, b.nameBook as NameBook, c.name as NameClient, l.dateInitialLoan as DateInitialLoan, l.idStatusLoan as IdStatusLoan, l.lateFine as LateFine, l.note as Note 
+            var query = @"SELECT l.idLoan as IdLoan, b.nameBook as NameBook, c.name as NameClient, l.dateInitialLoan as DateInitialLoan, l.idStatusLoan as IdStatusLoan, l.lateFine as LateFine, l.note as Note, c.email as Email 
                           FROM loan l LEFT JOIN book b ON l.idBook = b.idBook LEFT JOIN client c ON l.idClient = c.idClient  
                           WHERE idLoan = @IdLoan";
 
@@ -73,7 +74,7 @@ namespace Library.Data.Repositories
         public async Task RenovateLoan(int idLoan)
         {
             var query = @"UPDATE loan
-                        SET idStatusLoan = @IdStatusLoan, note = @Note
+                        SET idStatusLoan = @IdStatusLoan, note = @Note, lastStatusDate = @LastStatusDate
                         WHERE idLoan = @IdLoan;";
 
             var message = "The book was renewed.";
@@ -82,6 +83,7 @@ namespace Library.Data.Repositories
             param.Add("@IdStatusLoan", StatusLoan.Renewed);
             param.Add("@Note", message);
             param.Add("@IdLoan", idLoan);
+            param.Add("@@LastStatusDate", DateTime.Now);
 
             using (var connection = new MySqlConnection(connectionString))
             {

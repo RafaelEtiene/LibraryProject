@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Data.Services.Interfaces
+namespace Library.Data.Repositories.Interfaces
 {
-    public interface IMonitoringService
+    public interface IMonitoringRepository
     {
         public Task<IEnumerable<LoanInfo>> ReturnLoanDelayed();
         public Task<IEnumerable<LoanInfo>> ReturnLoanAlmostDue();

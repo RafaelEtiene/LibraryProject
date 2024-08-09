@@ -14,5 +14,10 @@ namespace Library.Data.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task UpdateLateFineLoan(IEnumerable<LoanInfo> loans)
+        {
+
+        }
     }
 }
