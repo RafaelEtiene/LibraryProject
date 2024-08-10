@@ -7,6 +7,7 @@
         public string NameClient { get; set; }
         public string Email { get; set; }
         public DateTime DateInitialLoan { get; set; }
+        public DateTime LastStatusDate { get; set; }
         public int IdStatusLoan { get; set; }
         public decimal LateFine { get; set; }
         public string? Note { get; set; }

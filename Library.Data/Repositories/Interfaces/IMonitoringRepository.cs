@@ -11,6 +11,6 @@ namespace Library.Data.Repositories.Interfaces
     {
         public Task<IEnumerable<LoanInfo>> ReturnLoanDelayed();
         public Task<IEnumerable<LoanInfo>> ReturnLoanAlmostDue();
-        public Task UpdateLateFineLoan(IEnumerable<LoanInfo> loans);
+        public Task UpdateLateFineLoan(IEnumerable<int> idsLoan);
     }
 }

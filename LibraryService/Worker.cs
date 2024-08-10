@@ -1,22 +1,23 @@
+using Library.Data.Services.Interfaces;
+
 namespace LibraryService
 {
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
-
-        public Worker(ILogger<Worker> logger)
+        private readonly IMonitoringService _monitoringService;
+        public Worker(IMonitoringService monitoringService)
         {
-            _logger = logger;
+            _monitoringService = monitoringService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+             while (!stoppingToken.IsCancellationRequested)
             {
-                if (_logger.IsEnabled(LogLevel.Information))
-                {
-                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
+                Console.WriteLine($"LibraryService runnig at {DateTime.Now}");
+
+                await _monitoringService.JobMonitoringLoans();
+
                 await Task.Delay(1000, stoppingToken);
             }
         }

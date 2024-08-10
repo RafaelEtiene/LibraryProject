@@ -38,7 +38,7 @@ namespace Library.Data.Repositories
 
         public async Task<LoanInfo> GetBookLoanById(int idLoan)
         {
-            var query = @"SELECT l.idLoan as IdLoan, b.nameBook as NameBook, c.name as NameClient, l.dateInitialLoan as DateInitialLoan, l.idStatusLoan as IdStatusLoan, l.lateFine as LateFine, l.note as Note, c.email as Email 
+            var query = @"SELECT l.idLoan as IdLoan, b.nameBook as NameBook, c.name as NameClient, l.dateInitialLoan as DateInitialLoan, l.idStatusLoan as IdStatusLoan, l.lateFine as LateFine, l.note as Note, c.email as Email, l.lastStatusDate as LastStatusDate
                           FROM loan l LEFT JOIN book b ON l.idBook = b.idBook LEFT JOIN client c ON l.idClient = c.idClient  
                           WHERE idLoan = @IdLoan";
 

@@ -9,8 +9,6 @@ namespace Library.Data.Services.Interfaces
 {
     public interface IMonitoringService
     {
-        public Task<IEnumerable<LoanInfo>> ReturnLoanDelayed();
-        public Task<IEnumerable<LoanInfo>> ReturnLoanAlmostDue();
-        public Task UpdateLateFineLoan(IEnumerable<LoanInfo> loans);
+        public Task JobMonitoringLoans();
     }
 }
