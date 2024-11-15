@@ -68,7 +68,7 @@ namespace Library.Data.Services
                         var body = $"Your loan of the {item.NameBook} is due. Actually the late fine is R${item.LateFine.ToString("C2")}";
 
 
-                        _emailService.SendEmailAsync(item.Email, subject, body);
+                        await _emailService.SendEmailAsync(item.Email, subject, body);
                     }
                 }
             }
