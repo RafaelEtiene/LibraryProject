@@ -2,10 +2,12 @@ using Library.Model.Exceptions;
 using Library.Model.Model;
 using Library.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryAPI.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ClientController : ControllerBase
     {

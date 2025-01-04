@@ -2,8 +2,10 @@
 using Library.Data.Services.Interfaces;
 using Library.Model.Exceptions;
 using Library.Model.Model;
+using Library.Model.Validators;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,16 +27,26 @@ namespace Library.Data.Services
             _configuration = configuration;
         }
 
-        public async Task<string> GenerateJwtToken(string userName, string password)
+        public async Task<string> GenerateJwtToken(Users user)
         {
-            if(await GetUsers(userName, password))
+            var validator = new TokenValidator();
+            var result = validator.Validate(user);
+
+            if (!result.IsValid)
+            {
+                var propertiesError = validator.ReturnPropertiesWithError(result.Errors);
+
+                throw new BusinessException($"The request is invalid. {propertiesError}");
+            }
+
+            if (await GetUsers(user.User, user.Password))
             {
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var claims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, userName),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.User),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 

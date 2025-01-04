@@ -9,8 +9,6 @@ namespace Library.Data.Services.Interfaces
 {
     public interface IAuthService
     {
-        private Task<bool> GetUsers(string userName, string password);
-
-        public Task<string> GenerateJwtToken(string user, string password);
+        public Task<string> GenerateJwtToken(Users user);
     }
 }

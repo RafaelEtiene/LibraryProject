@@ -8,7 +8,6 @@ namespace Library.Model.Model
 {
     public class Users
     {
-        public int IdUser { get; set; }
         public string User { get; set; }
         public string Password { get; set; }
     }
