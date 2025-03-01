@@ -3,26 +3,28 @@ using Library.Infrastructure.Data.Repositories.Interfaces;
 using Library.Core.Entities;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Library.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using Library.Infrastructure.Models;
 
 namespace Library.Infrastructure.Data.Repositories
 {
     public class BookRepository : IBookRepository
     {
         private readonly string connectionString;
+        private readonly LibraryContext _context;
 
-        public BookRepository(IConfiguration configuration)
+        public BookRepository(IConfiguration configuration, LibraryContext libraryContext)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection");
+            _context = libraryContext;
         }
 
-        public async Task<IEnumerable<BookInfo>> GetAllBooksAsync()
+        public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            var query = @"SELECT idBook as IdBook, nameBook as NameBook, author as Author, publicationDate as PublicationDate, idBookGenre as Genre
-                          FROM Book";
-
-            using (var connection = new MySqlConnection(connectionString))
+            using (var context = _context)
             {
-                return await connection.QueryAsync<BookInfo>(query);
+                return await _context.Books.ToListAsync();
             }
         }
 

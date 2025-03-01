@@ -17,7 +17,7 @@ namespace Library.Application.Validators
             RuleFor(book => book.PublicationDate).LessThanOrEqualTo(DateTime.Today).WithMessage("Published date cannot be in the future.")
                                                  .NotEmpty().WithMessage("PublicationDate is required.");
 
-            RuleFor(book => book.Genre).NotEmpty().WithMessage("Genre is required."); ;
+            RuleFor(book => book.Genre).NotEmpty().WithMessage("IdGenre is required."); ;
         }
 
         public string ReturnPropertiesWithError(List<ValidationFailure> errors)

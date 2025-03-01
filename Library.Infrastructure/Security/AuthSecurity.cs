@@ -1,14 +1,9 @@
 ﻿using Library.Core.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using Library.Infrastructure.Data.Repositories.Interfaces;
 using Library.Infrastructure.Exceptions;
 using Library.Application.Services.Interfaces;
@@ -57,7 +52,7 @@ namespace Library.Application.Services
         private async Task<bool> GetUsers(string userName, string password)
         {
             var users = await _authRepository.GetUsers();
-            var user = users.FirstOrDefault(u => u.User == userName);
+            var user = users.FirstOrDefault(u => u.User1 == userName);
 
             if (user is null)
             {

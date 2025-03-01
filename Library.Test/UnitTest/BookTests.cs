@@ -6,8 +6,11 @@ using Library.Core.Entities;
 using Library.Core.Enum;
 using Library.Infrastructure.Data.Repositories;
 using Library.Infrastructure.Data.Repositories.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static Library.Test.DependencyInjection.DependencyInjection;
 using System;
+using Library.Test.DependencyInjection;
 
 namespace Library.Test.UnitTest
 {
@@ -19,14 +22,13 @@ namespace Library.Test.UnitTest
         public BookTests()
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddScoped<IBookRepository, BookRepository>();
-            serviceCollection.AddScoped<IBookService, BookService>();
 
+            serviceCollection.AddInfrastructureServices();
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            _bookService = _serviceProvider.GetService<BookService>();
-
+            _bookService = _serviceProvider.GetRequiredService<IBookService>();
         }
+
         [Fact]
         public async void InsertBook_Test()
         {
@@ -37,12 +39,20 @@ namespace Library.Test.UnitTest
                 Author = faker.Name.FullName(),
                 Genre = faker.Random.Enum<BookGenre>(),
                 NameBook = faker.Commerce.ProductName(),
-                PublicationDate = faker.Date.Past(20)
+                PublicationDate = DateOnly.FromDateTime(faker.Date.Past(20))
             };
 
             var result = await _bookService.InsertBookAsync(book);
 
             Assert.True(result > 0);
+        }
+
+        [Fact]
+        public async void GetAllBooks_Test()
+        {
+            var result = await _bookService.GetAllBooksAsync();
+
+            Assert.True(result.Any());
         }
     }
 }

@@ -1,33 +1,24 @@
-﻿using Dapper;
-using Library.Infrastructure.Data.Repositories.Interfaces;
-using Library.Core.Entities;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Library.Infrastructure.Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Library.Infrastructure.Data.Context;
+using Library.Infrastructure.Models;
 
 namespace Library.Infrastructure.Data.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly string connectionString;
+        private readonly LibraryContext _context;
 
-        public AuthRepository(IConfiguration configuration)
+        public AuthRepository(LibraryContext libraryContext)
         {
-            connectionString = configuration.GetConnectionString("DefaultConnection");
+            _context = libraryContext;
         }
 
-        public async Task<IEnumerable<Users>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            var query = @"SELECT idUser IdUser, user User, password Password
-                          FROM users;";
-
-            using (var connection = new MySqlConnection(connectionString))
+            using (var context = _context)
             {
-                return await connection.QueryAsync<Users>(query);
+                return await context.Users.ToListAsync();
             }
         }
     }

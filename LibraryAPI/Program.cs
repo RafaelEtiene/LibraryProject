@@ -9,6 +9,8 @@ using System.Text;
 using Library.Infrastructure.Data.Repositories;
 using Library.Infrastructure.Data.Repositories.Interfaces;
 using Library.Application.Mapper;
+using Library.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,10 @@ var configuration = new MapperConfiguration(cfg =>
     cfg.AddProfile<ClientProfile>();
     cfg.AddProfile<LoanProfile>();
 });
+
+builder.Services.AddDbContext<LibraryContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 34))));
 
 builder.Services.AddEndpointsApiExplorer();
 
