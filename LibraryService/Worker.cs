@@ -1,6 +1,6 @@
-using Library.Data.Services.Interfaces;
+using Library.Application.Services.Interfaces;
 
-namespace LibraryService
+namespace Library.Service
 {
     public class Worker : BackgroundService
     {

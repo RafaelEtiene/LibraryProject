@@ -1,9 +1,10 @@
-﻿using Library.Data.Services.Interfaces;
-using Library.Model.Exceptions;
-using Library.Model.Model;
+﻿using Library.Application.Services.Interfaces;
+using Library.Application.Exceptions;
+using Library.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Library.Application.ViewModel;
 
-namespace LibraryAPI.Controllers
+namespace Library.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -16,10 +17,7 @@ namespace LibraryAPI.Controllers
             _authService = authService;
         }   
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Token([FromBody]Users user)
+        public async Task<IActionResult> Token([FromBody]UserViewModel user)
         {
             try
             {

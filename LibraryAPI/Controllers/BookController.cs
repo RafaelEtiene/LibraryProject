@@ -1,9 +1,11 @@
-using Library.Model.Exceptions;
-using Library.Model.Model;
-using Library.Data.Services.Interfaces;
+using Library.Application.Exceptions;
+using Library.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Library.Application.Services.Interfaces;
+using Library.Application.ViewModel;
 
-namespace LibraryAPI.Controllers
+namespace Library.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -16,8 +18,9 @@ namespace LibraryAPI.Controllers
             _bookService = bookService;
         }
 
+        [Authorize]
         [HttpGet("GetAllBooks")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookInfo>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<BookInfoViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllBooks()
         {
@@ -37,10 +40,11 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("InsertBook")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertBook([FromBody]BookInfo request)
+        public async Task<IActionResult> InsertBook([FromBody]BookInfoViewModel request)
         {
             try
             {
@@ -58,6 +62,7 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("InsertMassiveBooks")]
         public async Task<IActionResult> InsertMassiveBooks()
         {

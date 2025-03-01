@@ -1,27 +1,37 @@
-using Library.Data.Repositories;
-using Library.Data.Repositories.Interfaces;
-using Library.Data.Services;
-using Library.Data.Services.Interfaces;
+using AutoMapper;
+using Library.Application.Services;
+using Library.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
+using Library.Infrastructure.Data.Repositories;
+using Library.Infrastructure.Data.Repositories.Interfaces;
+using Library.Application.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var configuration = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<UserProfile>();
+    cfg.AddProfile<BookInfoProfile>();
+    cfg.AddProfile<ClientProfile>();
+    cfg.AddProfile<LoanProfile>();
+});
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddTransient<ILoanService, LoanService>();
-builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<ILoanRepository, LoanRepository>();
-builder.Services.AddTransient<IBookRepository, BookRepository>();
-builder.Services.AddTransient<IClientRepository, ClientRepository>();
-builder.Services.AddTransient<IClientService, ClientService>();
-builder.Services.AddTransient<IAuthRepository, AuthRepository>();
-builder.Services.AddTransient<IAuthService, AuthService>();
+
+builder.Services.AddSingleton(configuration.CreateMapper());
+builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthSecurity, AuthSecurity>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -58,7 +68,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Minha API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Library.API", Version = "v1" });
 
     // Adicionar suporte ao esquema de autenticação Bearer
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -88,6 +98,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 

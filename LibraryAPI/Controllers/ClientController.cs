@@ -1,13 +1,12 @@
-using Library.Model.Exceptions;
-using Library.Model.Model;
-using Library.Data.Services.Interfaces;
+using Library.Application.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Library.Application.Services.Interfaces;
+using Library.Application.ViewModel;
 
-namespace LibraryAPI.Controllers
+namespace Library.API.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("[controller]")]
     public class ClientController : ControllerBase
     {
@@ -18,8 +17,9 @@ namespace LibraryAPI.Controllers
             _clientService = clientService;
         }
 
+        [Authorize]
         [HttpGet("GetClients")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Client>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ClientViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetClients()
         {
@@ -39,10 +39,11 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("InsertNewClient")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> InsertNewClient([FromBody]Client request)
+        public async Task<IActionResult> InsertNewClient([FromBody]ClientViewModel request)
         {
             try
             {
@@ -60,8 +61,9 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("GetClientById")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Client))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ClientViewModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetClientById([FromHeader]int idClient)
         {

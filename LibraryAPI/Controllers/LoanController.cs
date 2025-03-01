@@ -1,10 +1,11 @@
-using Library.Model.Exceptions;
-using Library.Model.Model;
-using Library.Data.Services.Interfaces;
+using Library.Application.Exceptions;
+using Library.Core.Entities;
+using Library.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Library.Model.DTO;
+using Library.Application.DTO;
+using Microsoft.AspNetCore.Authorization;
 
-namespace LibraryAPI.Controllers
+namespace Library.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,6 +18,7 @@ namespace LibraryAPI.Controllers
             _loanService = loanService;
         }
 
+        [Authorize]
         [HttpGet("GetBookLoanById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoanInfo))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -37,6 +39,7 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("InsertNewBookLoan")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,6 +60,7 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("RenovateLoan")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,6 +81,7 @@ namespace LibraryAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("FinishLoan")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
