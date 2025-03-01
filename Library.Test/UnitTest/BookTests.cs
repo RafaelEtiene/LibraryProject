@@ -34,10 +34,10 @@ namespace Library.Test.UnitTest
 
             var book = new BookInfoViewModel
             {
-                Author = faker.Name.FullName(),  // Nome do autor aleatório
-                Genre = faker.Random.Enum<BookGenre>(),  // Gênero aleatório
-                NameBook = faker.Commerce.ProductName(),  // Nome do livro aleatório
-                PublicationDate = faker.Date.Past(20)  // Data de publicação aleatória (nos últimos 20 anos)
+                Author = faker.Name.FullName(),
+                Genre = faker.Random.Enum<BookGenre>(),
+                NameBook = faker.Commerce.ProductName(),
+                PublicationDate = faker.Date.Past(20)
             };
 
             var result = await _bookService.InsertBookAsync(book);
