@@ -1,0 +1,864 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Library.API",
+    "version": "v1"
+  },
+  "paths": {
+    "/Book/GetAllBooks": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookInfoViewModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookInfoViewModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookInfoViewModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Book/InsertBook": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookInfoViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookInfoViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookInfoViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Book/InsertMassiveBooks": {
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Client/GetClients": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientViewModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientViewModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientViewModel"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Client/InsertNewClient": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Client/GetClientById": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "idClient",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientViewModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientViewModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientViewModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Loan/GetAllLoans": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LoanInfo"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LoanInfo"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LoanInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Loan/GetBookLoanById": {
+      "get": {
+        "tags": [
+          "Loan"
+        ],
+        "parameters": [
+          {
+            "name": "idLoan",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanInfo"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanInfo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoanInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Loan/InsertNewBookLoan": {
+      "post": {
+        "tags": [
+          "Loan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanInsertDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanInsertDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoanInsertDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Loan/RenovateLoan": {
+      "post": {
+        "tags": [
+          "Loan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Loan/FinishLoan": {
+      "post": {
+        "tags": [
+          "Loan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Token": {
+      "post": {
+        "tags": [
+          "Token"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookGenre": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "BookInfoViewModel": {
+        "type": "object",
+        "properties": {
+          "nameBook": {
+            "type": "string",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicationDate": {
+            "$ref": "#/components/schemas/DateOnly"
+          },
+          "genre": {
+            "$ref": "#/components/schemas/BookGenre"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientViewModel": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DateOnly": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "day": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dayOfWeek": {
+            "$ref": "#/components/schemas/DayOfWeek"
+          },
+          "dayOfYear": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "dayNumber": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DayOfWeek": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "LoanInfo": {
+        "type": "object",
+        "properties": {
+          "idLoan": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nameBook": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameClient": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateInitialLoan": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastStatusDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idStatusLoan": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lateFine": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoanInsertDTO": {
+        "type": "object",
+        "properties": {
+          "idBook": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idClient": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "UserViewModel": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Insira o token JWT no formato: Bearer {seu-token}",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

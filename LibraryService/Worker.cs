@@ -5,6 +5,7 @@ namespace Library.Service
     public class Worker : BackgroundService
     {
         private readonly IMonitoringService _monitoringService;
+        private const int _oneDayDelay = 180000;
         public Worker(IMonitoringService monitoringService)
         {
             _monitoringService = monitoringService;
@@ -18,7 +19,7 @@ namespace Library.Service
 
                 await _monitoringService.JobMonitoringLoans();
 
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(_oneDayDelay, stoppingToken);
             }
         }
     }

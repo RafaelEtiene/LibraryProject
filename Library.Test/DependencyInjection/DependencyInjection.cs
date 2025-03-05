@@ -39,6 +39,7 @@ namespace Library.Test.DependencyInjection
             services.AddSingleton<IConfiguration>(configuration);
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             return services.BuildServiceProvider();
         }

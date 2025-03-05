@@ -10,7 +10,7 @@ namespace Library.Application.ViewModel
     {
         public string NameBook { get; set; }
         public string NameClient { get; set; }
-        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime DateInitialLoan { get; set; }
         public DateTime LastStatusDate { get; set; }
         public int IdStatusLoan { get; set; }

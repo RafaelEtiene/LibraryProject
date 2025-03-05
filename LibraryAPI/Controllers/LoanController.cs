@@ -19,6 +19,27 @@ namespace Library.API.Controllers
         }
 
         [Authorize]
+        [HttpGet("GetAllLoans")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<LoanInfo>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllLoans()
+        {
+            try
+            {
+                var result = await _loanService.GetAllLoans();
+                return Ok(result);
+            }
+            catch (BusinessException ex)
+            {
+                return BadRequest($"An error ocurred in get loan by id. {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"An error ocurred in get loan by id. {ex.Message}");
+            }
+        }
+
+        [Authorize]
         [HttpGet("GetBookLoanById")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoanInfo))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

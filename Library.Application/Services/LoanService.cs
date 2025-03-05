@@ -6,6 +6,7 @@ using Library.Application.Services.Interfaces;
 using AutoMapper;
 using Library.Application.ViewModel;
 using Library.Infrastructure.Data.Repositories.Interfaces;
+using Library.Infrastructure.Models;
 
 namespace Library.Application.Services
 {
@@ -18,6 +19,18 @@ namespace Library.Application.Services
         {
             _loanRepository = loanRepository;
             _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<LoanInfoViewModel>> GetAllLoans()
+        {
+            var loanInfo = await _loanRepository.GetAllLoans();
+
+            if (loanInfo is null)
+            {
+                throw new BusinessException($"Not found loan info.");
+            }
+
+            return _mapper.Map<IEnumerable<LoanInfoViewModel>>(loanInfo);
         }
 
         public async Task<LoanInfoViewModel> GetBookLoanByIdAsync(int idLoan)
@@ -50,7 +63,7 @@ namespace Library.Application.Services
                 throw new BusinessException($"The client already has an active loan.");
             }
 
-            var loan = new Loan()
+            var loan = new Core.Entities.Loan()
             {
                 IdClient = loanInsert.IdClient,
                 IdBook = loanInsert.IdBook,

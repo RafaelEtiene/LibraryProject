@@ -4,6 +4,7 @@ namespace Library.Infrastructure.Data.Repositories.Interfaces
 {
     public interface ILoanRepository
     {
+        public Task<IEnumerable<LoanInfo>> GetAllLoans();
         public Task<LoanInfo> GetBookLoanById(int idLoan);
         public Task<int> InsertNewBookLoan(Loan loan);
         public Task RenovateLoan(int idLoan);

@@ -15,7 +15,7 @@ namespace Library.Application.Mapper
                 .ForMember(dest => dest.LateFine, opt => opt.MapFrom(src => src.LateFine))
                 .ForMember(dest => dest.LastStatusDate, opt => opt.MapFrom(src => src.LastStatusDate))
                 .ForMember(dest => dest.IdStatusLoan, opt => opt.MapFrom(src => src.IdStatusLoan))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.DateInitialLoan, opt => opt.MapFrom(src => src.DateInitialLoan));
         }
     }

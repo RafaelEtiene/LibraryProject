@@ -8,7 +8,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddSingleton<IMonitoringService, MonitoringService>();
 builder.Services.AddSingleton<IMonitoringRepository, MonitoringRepository>();
-builder.Services.AddSingleton<IEmailService, EmailService>();
+builder.Services.AddSingleton<IMessageService, MessageService>();
 
 builder.Services.AddHostedService<Worker>();
 

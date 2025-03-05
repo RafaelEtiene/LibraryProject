@@ -4,16 +4,44 @@ using Library.Core.Enum;
 using Library.Core.Entities;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using Library.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Infrastructure.Data.Repositories
 {
     public class LoanRepository : ILoanRepository
     {
         private readonly string connectionString;
+        private readonly LibraryContext _context;
 
-        public LoanRepository(IConfiguration configuration)
+        public LoanRepository(IConfiguration configuration, LibraryContext libraryContext)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection");
+            _context = libraryContext;
+        }
+
+        public async Task<IEnumerable<LoanInfo>> GetAllLoans()
+        {
+            using (var context = _context)
+            {
+                return await context.Loans
+                    .Include(e => e.IdBookNavigation)
+                    .Include(e => e.IdClientNavigation)
+                    .Select(e => new LoanInfo
+                    {
+                        NameBook = e.IdBookNavigation.NameBook,
+                        NameClient = e.IdClientNavigation.Name,
+                        DateInitialLoan = e.DateInitialLoan.ToDateTime(TimeOnly.MinValue),
+                        IdLoan = e.IdLoan,
+                        IdStatusLoan = e.IdStatusLoan,
+                        LastStatusDate = e.LastStatusDate.Value.ToDateTime(TimeOnly.MinValue),
+                        LateFine = e.LateFine ?? 0,
+                        Note = e.Note ?? "",
+                        PhoneNumber = e.IdClientNavigation.PhoneNumber
+                    })
+                    .ToListAsync();
+
+            }
         }
 
         public async Task FinishLoan(int idLoan)

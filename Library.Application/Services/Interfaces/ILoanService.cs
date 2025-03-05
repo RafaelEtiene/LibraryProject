@@ -6,6 +6,7 @@ namespace Library.Application.Services.Interfaces
 {
     public interface ILoanService
     {
+        public Task<IEnumerable<LoanInfoViewModel>> GetAllLoans();
         public Task<LoanInfoViewModel> GetBookLoanByIdAsync(int idLoan);
         public Task<int> InsertNewBookLoanAsync(LoanInsertDTO loan);
         public Task RenovateLoanAsync(int idLoan);

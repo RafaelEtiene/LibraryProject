@@ -9,12 +9,12 @@ namespace Library.Application.Services
     public class MonitoringService : IMonitoringService
     {
         private readonly IMonitoringRepository _monitoringRepository;
-        private readonly IEmailService _emailService;
+        private readonly IMessageService _messageService;
 
-        public MonitoringService(IMonitoringRepository monitoringRepository, IEmailService emailService)
+        public MonitoringService(IMonitoringRepository monitoringRepository, IMessageService messageService)
         {
             _monitoringRepository = monitoringRepository;
-            _emailService = emailService;
+            _messageService = messageService;
         }
 
         public async Task JobMonitoringLoans()
@@ -32,6 +32,7 @@ namespace Library.Application.Services
 
                 if (result.Count() > 0)
                 {
+                    Console.WriteLine($"{result.Count()} with 4 days left until your loan is due.");
                     foreach (var item in result)
                     {
                         var dateComparison = item.IdStatusLoan == (int)StatusLoan.Renewed ? item.LastStatusDate : item.DateInitialLoan;
@@ -40,7 +41,7 @@ namespace Library.Application.Services
                         var subject = $"Hello {item.NameClient}! 4 days left until your loan is due";
                         var body = $"Your loan of the {item.NameBook} was made on day {item.DateInitialLoan.ToString("dd/MM")}. The deadline for you to renew or return ends on day {dateIsDue.ToString("dd/MM")}";
 
-                        await _emailService.SendEmailAsync(item.Email, subject, body);
+                        await _messageService.SendMessageAsync(item.PhoneNumber, body);
                     }
                 }
             }
@@ -55,19 +56,19 @@ namespace Library.Application.Services
             try
             {
                 var result = await _monitoringRepository.ReturnLoanDelayed();
+                result = result.Where(e => e.PhoneNumber == "41997849659").ToList();
 
                 if (result.Count() > 0)
                 {
+                    Console.WriteLine($"{result.Count()} late loans found.");
                     var idsLoans = result.Select(e => e.IdLoan).ToList();
                     await UpdateLateFineLoanAsync(idsLoans);
 
                     foreach (var item in result)
                     {
-                        var subject = $"Hello {item.NameClient}! Your loan is due.";
-                        var body = $"Your loan of the {item.NameBook} is due. Actually the late fine is R${item.LateFine.ToString("C2")}";
+                        var body = $"Your loan of the {item.NameBook} is due. Actually the late fine is {item.LateFine.ToString("C2")}. \n Contact us to make payment and renew.";
 
-
-                        await _emailService.SendEmailAsync(item.Email, subject, body);
+                        await _messageService.SendMessageAsync(item.PhoneNumber, body);
                     }
                 }
             }
@@ -75,7 +76,6 @@ namespace Library.Application.Services
             {
                 Console.WriteLine($"An error ocurred in verify loans delayed.{ex}");
             }
-
         }
 
         private async Task UpdateLateFineLoanAsync(IEnumerable<int> idLoans)

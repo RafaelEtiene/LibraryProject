@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Application.Services.Interfaces
 {
-    public interface IEmailService
+    public interface IMessageService
     {
-        public Task SendEmailAsync(string toEmail, string subject, string body, bool isHtml = false);
+        public Task<bool> SendMessageAsync(string phoneNumberClient, string body);
     }
 }
